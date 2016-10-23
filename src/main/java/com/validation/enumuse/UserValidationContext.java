@@ -15,6 +15,10 @@ public class UserValidationContext {
         this.userValidationStrategies = userValidationStrategies;
     }
 
+    /*
+    * This method performs validation for fields one by one and return the invalid one if found.
+    * Otherwise, it will continue validating remaining fields. If all the fields are valid then will return null.
+  	*/
     public ValidationType execute(UserInput userInput) {
         ValidationStrategy userValidation = UserValidationStrategy.UNSUPPORTED;
         for (Iterator<ValidationStrategy> iterator = userValidationStrategies.iterator(); iterator.hasNext();) {
@@ -23,9 +27,13 @@ public class UserValidationContext {
                 return userValidation.getValidationType();
             }
         }
-        throw new InvalidOperationException("Unsupported user validation: " + userValidation);
+        return null;
     }
 
+    /*
+    * This method performs validation for fields one by one and
+    * add the invalid one into a list if found and returns that list.
+  	*/
     public List<ValidationType> executeAndGetList(UserInput userInput) {
         ValidationStrategy userValidation = UserValidationStrategy.UNSUPPORTED;
         List<ValidationType> validatedTypes = new ArrayList<ValidationType>();
