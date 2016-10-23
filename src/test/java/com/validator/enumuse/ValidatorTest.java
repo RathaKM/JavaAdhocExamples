@@ -114,6 +114,80 @@ public class ValidatorTest {
     }
 
     @Test
+    public void testValidatorForAllValidAndGetList() {
+        Set<ValidationStrategy> strategies = new LinkedHashSet<ValidationStrategy>();
+        strategies.add(UserValidationStrategy.DATE_OF_BIRTH);
+        strategies.add(UserValidationStrategy.CITY);
+        strategies.add(UserValidationStrategy.ZIP);
+        strategies.add(UserValidationStrategy.COUNTRY);
+        strategies.add(UserValidationStrategy.SSN);
+        strategies.add(UserValidationStrategy.CREDIT_CARD_NUMBER);
+        strategies.add(UserValidationStrategy.BANK_ROUTING_NUMBER);
+        strategies.add(UserValidationStrategy.BANK_ACCOUNT_NUMBER);
+        strategies.add(UserValidationStrategy.BANK_NAME);
+        strategies.add(UserValidationStrategy.BANK_CITY);
+        strategies.add(UserValidationStrategy.BANK_ZIP);
+        strategies.add(UserValidationStrategy.BANK_COUNTRY);
+
+        UserInput input = new UserInput();
+        input.setUserValid(true);
+        input.setDateOfBirth("01/01/1990");
+        input.setCity("SanJose");
+        input.setZip("95131");
+        input.setCountry("USA");
+        input.setSsn("123-45-6789");
+        input.setBankAdded(true);
+        input.setCreditCardAdded(true);
+        input.setCreditCardNumber("123456789");
+        input.setBankRoutingNumber("123456789");
+        input.setBankAccountNumber("12345678898");
+        input.setBankName("Abc");
+        input.setBankCity("SanJose");
+        input.setBankZip("95131");
+        input.setBankCountry("USA");
+        UserValidationContext ctxUser = new UserValidationContext(strategies);
+        Object[] arrResultActual = ctxUser.executeAndGetList(input).toArray();
+        Object[] arrResultExpected = {};
+        Assert.assertArrayEquals(arrResultExpected, arrResultActual);
+    }
+
+    @Test
+    public void testValidatorForAllValid() {
+        Set<ValidationStrategy> strategies = new LinkedHashSet<ValidationStrategy>();
+        strategies.add(UserValidationStrategy.DATE_OF_BIRTH);
+        strategies.add(UserValidationStrategy.CITY);
+        strategies.add(UserValidationStrategy.ZIP);
+        strategies.add(UserValidationStrategy.COUNTRY);
+        strategies.add(UserValidationStrategy.SSN);
+        strategies.add(UserValidationStrategy.CREDIT_CARD_NUMBER);
+        strategies.add(UserValidationStrategy.BANK_ROUTING_NUMBER);
+        strategies.add(UserValidationStrategy.BANK_ACCOUNT_NUMBER);
+        strategies.add(UserValidationStrategy.BANK_NAME);
+        strategies.add(UserValidationStrategy.BANK_CITY);
+        strategies.add(UserValidationStrategy.BANK_ZIP);
+        strategies.add(UserValidationStrategy.BANK_COUNTRY);
+
+        UserInput input = new UserInput();
+        input.setUserValid(true);
+        input.setDateOfBirth("01/01/1990");
+        input.setCity("SanJose");
+        input.setZip("95131");
+        input.setCountry("USA");
+        input.setSsn("123-45-6789");
+        input.setBankAdded(true);
+        input.setCreditCardAdded(true);
+        input.setCreditCardNumber("123456789");
+        input.setBankRoutingNumber("123456789");
+        input.setBankAccountNumber("12345678898");
+        input.setBankName("Abc");
+        input.setBankCity("SanJose");
+        input.setBankZip("95131");
+        input.setBankCountry("USA");
+        UserValidationContext ctxUser = new UserValidationContext(strategies);
+        Assert.assertNull(ctxUser.execute(input));
+    }
+
+    @Test
     public void testValidatorForUNSUPPORTED() {
         Set<ValidationStrategy> strategies = new LinkedHashSet<ValidationStrategy>();
         strategies.add(UserValidationStrategy.DATE_OF_BIRTH);
